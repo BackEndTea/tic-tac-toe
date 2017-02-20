@@ -19,4 +19,4 @@ before_script:
 
 script:
 - vendor/bin/phpunit
-- php coverage-checker.php clover.xml 75
+- php coverage-checker.php clover.xml 30
