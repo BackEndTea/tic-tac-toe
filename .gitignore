@@ -1,3 +1,4 @@
+
 /node_modules
 /public/storage
 /public/hot
@@ -7,3 +8,13 @@
 Homestead.json
 Homestead.yaml
 .env
+
+
+
+# Laravel 5 & Lumen specific
+bootstrap/cache/
+.env.*.php
+.env.php
+
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+.rocketeer/
