@@ -17,8 +17,12 @@ class CreateGameTable extends Migration
             $table->increments('gameid');
             $table->unsignedInteger('player1id');
             $table->unsignedInteger('player2id');
+
             $table->integer('gamestate');
             $table->integer('gametype'); //To check if normal tic-tac-toe or 'Extreme'
+            
+            $table->dateTime('created_at');
+            $table->dateTime('finished_at')->nullable();
 
             $table->foreign('player1id')
                 ->references('id')->on('users')
@@ -26,6 +30,8 @@ class CreateGameTable extends Migration
             $table->foreign('player2id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
+
+
 
         });
     }
