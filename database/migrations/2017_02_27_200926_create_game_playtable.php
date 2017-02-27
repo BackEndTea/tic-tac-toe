@@ -40,7 +40,7 @@ class CreateNormalGameTable extends Migration
                     ->references('gameid')->on('games')
                     ->onDelete('cascade');
 
-        }
+        });
     }
 
     /**
