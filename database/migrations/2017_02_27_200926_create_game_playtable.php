@@ -37,8 +37,8 @@ class CreateNormalGameTable extends Migration
                 ->references('field_id')->on('users')
                 ->onDelete('cascade');
             $table->foreign('gameid')
-                    ->references('gameid')->on('games')
-                    ->onDelete('cascade');
+                ->references('gameid')->on('games')
+                ->onDelete('cascade');
         });
     }
 
