@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateNormalGameTable extends Migration
 {
@@ -26,7 +26,7 @@ class CreateNormalGameTable extends Migration
             $table->unsignedInteger('poition7');
             $table->unsignedInteger('poition8');
             $table->unsignedInteger('poition9');
-            /**
+            /*
             * id's are ordered as numpad
             * 7|8|9
             * 4|5|6
@@ -36,10 +36,9 @@ class CreateNormalGameTable extends Migration
             $table->foreign('parentid')
                 ->references('field_id')->on('users')
                 ->onDelete('cascade');
-                $table->foreign('gameid')
+            $table->foreign('gameid')
                     ->references('gameid')->on('games')
                     ->onDelete('cascade');
-
         });
     }
 

@@ -15,5 +15,4 @@ class Constants
     const GAME_INPUT_PLAYER1 = 1;
     const GAME_INPUT_PLAYER2 = 2;
     const GAME_INPUT_FIELD = 3;
-
 }
