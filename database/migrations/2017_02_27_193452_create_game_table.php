@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateGameTable extends Migration
 {
@@ -16,9 +16,9 @@ class CreateGameTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('gameid');
             $table->unsignedInteger('player1id');
-            $table->char('player1tag',1);
+            $table->char('player1tag', 1);
             $table->unsignedInteger('player2id')->nullable();
-            $table->char('player2tag',1)->nullable();
+            $table->char('player2tag', 1)->nullable();
 
             $table->integer('gamestate');
             $table->integer('gametype'); //To check if normal tic-tac-toe or 'Extreme'
@@ -32,9 +32,6 @@ class CreateGameTable extends Migration
             $table->foreign('player2id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
-
-
-
         });
     }
 
