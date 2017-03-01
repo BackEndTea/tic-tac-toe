@@ -13,10 +13,9 @@ class CreateNormalGameTable extends Migration
      */
     public function up()
     {
-        Schema::create('gameplay', function (Blueprint $table) {
+        Schema::create('field', function (Blueprint $table) {
             $table->increments('fieldid');
-            $table->unsignedInteger('gameid');
-            $table->unsignedInteger('parentid')->nullable();
+            $table->unsignedInteger('gameid')->nullable();
             $table->unsignedInteger('poition1');
             $table->unsignedInteger('poition2');
             $table->unsignedInteger('poition3');
@@ -31,7 +30,10 @@ class CreateNormalGameTable extends Migration
             * 7|8|9
             * 4|5|6
             * 1|2|3
-            **/
+            */
+
+            $table->unsignedInteger('parentid')->nullable();
+            $table->unsignedInteger('placement')->nullable();
 
             $table->foreign('parentid')
                 ->references('field_id')->on('users')
