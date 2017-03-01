@@ -18,7 +18,7 @@ class Field extends Model
      *
      * @var string
      */
-    protected $primaryKey = "fieldid";
+    protected $primaryKey = 'fieldid';
 
     /**
      * Indicates if the model should be timestamped.
@@ -28,9 +28,9 @@ class Field extends Model
     public $timestamps = false;
 
     /**
-    * The attributes that aren't mass assignable.
-    *
-    * @var array
-    */
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
     protected $guarded = [];
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-
     /**
     * The table associated with the model.
     *
@@ -19,7 +18,7 @@ class Game extends Model
      *
      * @var string
      */
-    protected $primaryKey = "gameid";
+    protected $primaryKey = 'gameid';
 
     /**
      * Indicates if the model should be timestamped.
@@ -29,10 +28,9 @@ class Game extends Model
     public $timestamps = false;
 
     /**
-    * The attributes that aren't mass assignable.
-    *
-    * @var array
-    */
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
     protected $guarded = [];
-
 }
