@@ -31,6 +31,15 @@ class GameRepositoryTest extends TestCase
         $this->assertEquals($game->gameid, $gameRepository->getById($game->gameid)->gameid);
     }
 
+    public function testgetAll()
+    {
+        $gameRepository = new GameRepository();
+        factory(User::class, 5)->create();
+        factory(Game::class, 10)->create();
+
+        $this->assertEquals(10, count($gameRepository->getAll()));
+    }
+
     /**
      * Will create 2 users for testing purposes
      *

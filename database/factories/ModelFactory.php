@@ -25,4 +25,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Game::class, function(Faker\Generator $faker) {
 
+    return [
+        'player1id'      => $faker->numberBetween($min = 1, $max = 5),
+        'player1tag'    => $faker->randomLetter,
+        'gametype'      => 0,
+    ];
+
 });
