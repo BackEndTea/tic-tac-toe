@@ -36,7 +36,7 @@ class CreateGamePlaytable extends Migration
             $table->unsignedInteger('placement')->nullable();
 
             $table->foreign('parentid')
-                ->references('fiedid')->on('field')
+                ->references('fieldid')->on('field')
                 ->onDelete('cascade');
             $table->foreign('gameid')
                 ->references('gameid')->on('games')
