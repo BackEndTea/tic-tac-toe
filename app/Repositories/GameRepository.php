@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Game;
+use Illuminate\Database\Eloquent\Collection;
 
 class GameRepository
 {
