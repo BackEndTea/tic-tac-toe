@@ -5,9 +5,8 @@ namespace Tests\Unit;
 use App\Game;
 use App\Repositories\GameRepository;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class GameRepositoryTest extends TestCase
 {
@@ -23,7 +22,7 @@ class GameRepositoryTest extends TestCase
             [
                 'player1id'     => $user->id,
                 'player1tag'    => 'X',
-                'gametype'      => '0'
+                'gametype'      => '0',
 
             ]
         );
@@ -41,8 +40,7 @@ class GameRepositoryTest extends TestCase
     }
 
     /**
-     * Will create 2 users for testing purposes
-     *
+     * Will create 2 users for testing purposes.
      */
     private function mockSomeUsers()
     {
@@ -60,12 +58,10 @@ class GameRepositoryTest extends TestCase
                 'password'  => bcrypt('secret'),
             ]
         );
-
     }
 
     /**
-     * Will create 1 user for testing purposes
-     *
+     * Will create 1 user for testing purposes.
      */
     private function mockAUser()
     {
@@ -76,6 +72,5 @@ class GameRepositoryTest extends TestCase
                 'password'  => bcrypt('secret'),
             ]
         );
-
     }
 }
