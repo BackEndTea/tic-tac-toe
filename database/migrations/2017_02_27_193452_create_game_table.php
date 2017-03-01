@@ -23,7 +23,7 @@ class CreateGameTable extends Migration
             $table->integer('gamestate')->default(0);
             $table->integer('gametype'); //To check if normal tic-tac-toe or 'Extreme'
 
-            $table->dateTime('created_at');
+            $table->timestamps();
             $table->dateTime('finished_at')->nullable();
 
             $table->foreign('player1id')
