@@ -15,19 +15,20 @@ class GameRepositoryTest extends TestCase
 
     public function testGetById()
     {
-        $this->mockSomeUsers();
+        $user = $this->mockaUser();
 
         $gameRepository = new GameRepository();
 
         $game = Game::create(
             [
-                'player1id'     => '1',
-                'playe1tag'     => 'X',
+                'player1id'     => $user->id,
+                'player1tag'    => 'X',
+                'gametype'      => '0'
 
             ]
         );
 
-        $this->assertEquals($game->id, $gameRepository->getById($game->id)->id);
+        $this->assertEquals($game->gameid, $gameRepository->getById($game->gameid)->gameid);
     }
 
     /**
@@ -47,6 +48,22 @@ class GameRepositoryTest extends TestCase
             [
                 'name'      => 'Jane Bar',
                 'email'     => 'janebar@example.com',
+                'password'  => bcrypt('secret'),
+            ]
+        );
+
+    }
+
+    /**
+     * Will create 1 user for testing purposes
+     *
+     */
+    private function mockAUser()
+    {
+        return User::create(
+            [
+                'name'      => 'John Doe',
+                'email'     => 'johndoe@example.com',
                 'password'  => bcrypt('secret'),
             ]
         );
