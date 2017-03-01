@@ -51,6 +51,6 @@ class CreateGamePlaytable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('field');
     }
 }

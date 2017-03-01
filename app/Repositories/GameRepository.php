@@ -64,4 +64,16 @@ class GameRepository
             return Game::where('gamestate', 2)->get();
         }
 
+        /**
+         * Creates a new game
+         *
+         * @param array $attributes
+         *
+         */
+         public function create($attributes)
+         {
+             return Game::create($attributes);
+
+         }
+
 }

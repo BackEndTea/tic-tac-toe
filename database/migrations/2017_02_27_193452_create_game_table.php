@@ -16,11 +16,11 @@ class CreateGameTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('gameid');
             $table->unsignedInteger('player1id');
-            $table->char('player1tag', 1);
+            $table->char('player1tag', 1)->default('x');
             $table->unsignedInteger('player2id')->nullable();
             $table->char('player2tag', 1)->nullable();
 
-            $table->integer('gamestate');
+            $table->integer('gamestate')->default(0);
             $table->integer('gametype'); //To check if normal tic-tac-toe or 'Extreme'
 
             $table->dateTime('created_at');
