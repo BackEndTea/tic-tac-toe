@@ -54,6 +54,7 @@ class FieldRepository
             ]
          );
      }
+
      /**
       * Creates an Extreme game in the databse.
       *
@@ -63,7 +64,7 @@ class FieldRepository
       */
      public function createExtremeGame($gameID)
      {
-        $field = Field::create(
+         $field = Field::create(
              [
                  'gameid'       => $gameID,
                  'position1'    => Constants::GAME_INPUT_FIELD,
@@ -78,16 +79,17 @@ class FieldRepository
              ]
          );
 
-        for ($i = 0; $i <= 9; $i++) {
-            $this->createInnerFields($field->gameid, $i);
-        }
-        return $field;
-    }
+         for ($i = 0; $i <= 9; $i++) {
+             $this->createInnerFields($field->gameid, $i);
+         }
+
+         return $field;
+     }
+
     /**
-     * Creaets inner fields for extreme game in the database
+     * Creaets inner fields for extreme game in the database.
      *
      * @param int parentID parent ID to which this field is linked
-     *
      * @param int placement placement of the inner field in the large field
      *
      * @return void
