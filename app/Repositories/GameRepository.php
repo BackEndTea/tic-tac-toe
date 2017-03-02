@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Game;
+use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
 
 class GameRepository
@@ -36,7 +37,7 @@ class GameRepository
        */
       public function getStartingGames()
       {
-          return Game::where('gamestate', 0)->get();
+          return Game::where('gamestate', Constants::GAME_STATE_NOT_YET_STARTED)->get();
       }
 
        /**
@@ -46,7 +47,7 @@ class GameRepository
         */
        public function getPlayingGames()
        {
-           return Game::where('gamestate', 1)->get();
+           return Game::where('gamestate', Constants::GAME_STATE_PLAYING)->get();
        }
 
         /**
@@ -56,7 +57,7 @@ class GameRepository
          */
         public function getFinishedGames()
         {
-            return Game::where('gamestate', 2)->get();
+            return Game::where('gamestate', Constants::GAME_STATE_FINISHED)->get();
         }
 
          /**
@@ -67,5 +68,25 @@ class GameRepository
          public function create($attributes)
          {
              return Game::create($attributes);
+         }
+
+         /**
+          * Updates gamestate of specified game.
+          *
+          * @param int id gameid
+          *
+          * @param int state new gamestate
+          *
+          * @return Game
+          */
+         public function setGameState($id, $state)
+         {
+             $game = Game::where('gameid', $id)->first();
+             if ($state == Constants::GAME_STATE_FINISHED) {
+                 $game->finished_at = date("Y-m-d H:i:s");
+             }
+             $game->gamestate = $state;
+             $game->save();
+             return $game;
          }
 }
