@@ -49,8 +49,8 @@ class GameRepositoryTest extends TestCase
 
         $this->assertEquals(10, count($gameRepository->getStartingGames()));
 
-        for($i = 1; $i<=5; $i++){
-            $gameRepository->setGameState($i,Constants::GAME_STATE_PLAYING);
+        for ($i = 1; $i <= 5; $i++) {
+            $gameRepository->setGameState($i, Constants::GAME_STATE_PLAYING);
         }
         $this->assertEquals(5, count($gameRepository->getStartingGames()));
     }
@@ -63,8 +63,8 @@ class GameRepositoryTest extends TestCase
 
         $this->assertEquals(0, count($gameRepository->getPlayingGames()));
 
-        for($i = 1; $i<=5; $i++){
-            $gameRepository->setGameState($i,Constants::GAME_STATE_PLAYING);
+        for ($i = 1; $i <= 5; $i++) {
+            $gameRepository->setGameState($i, Constants::GAME_STATE_PLAYING);
         }
         $this->assertEquals(5, count($gameRepository->getPlayingGames()));
     }
@@ -77,16 +77,15 @@ class GameRepositoryTest extends TestCase
 
         $this->assertEquals(0, count($gameRepository->getFinishedGames()));
 
-        for($i = 1; $i<=5; $i++){
-            $gameRepository->setGameState($i,Constants::GAME_STATE_PLAYING);
+        for ($i = 1; $i <= 5; $i++) {
+            $gameRepository->setGameState($i, Constants::GAME_STATE_PLAYING);
         }
         $this->assertEquals(0, count($gameRepository->getFinishedGames()));
 
-        for($i = 6; $i<=10; $i++){
-            $gameRepository->setGameState($i,Constants::GAME_STATE_FINISHED);
+        for ($i = 6; $i <= 10; $i++) {
+            $gameRepository->setGameState($i, Constants::GAME_STATE_FINISHED);
         }
         $this->assertEquals(5, count($gameRepository->getFinishedGames()));
-
     }
 
     public function testCreate()
@@ -104,8 +103,6 @@ class GameRepositoryTest extends TestCase
         $this->assertEquals(1, $game->player1id);
         $this->assertEquals('B', $game->player1tag);
         $this->assertEquals(Constants::GAME_TYPE_EXTREME, $game->gametype);
-
-
     }
 
     public function testSetGameState()
@@ -126,7 +123,6 @@ class GameRepositoryTest extends TestCase
 
         $this->assertEquals($gameRepository->getById(1)->gamestate,
             Constants::GAME_STATE_FINISHED);
-
     }
 
     /**

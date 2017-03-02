@@ -31,7 +31,7 @@ class FieldRepository
      }
 
      /**
-      * Creates a normal game in the database
+      * Creates a normal game in the database.
       *
       * @param int gameID Game ID to which this field is linked
       *
@@ -39,7 +39,7 @@ class FieldRepository
       */
      public function createNormalGame($gameID)
      {
-         return Field::create (
+         return Field::create(
             [
                 'gameid'        => $gameID,
                 'position1'     => Constants::GAME_INPUT_NONE,
@@ -55,9 +55,9 @@ class FieldRepository
          );
      }
 
-     public function createExtremeGame($gameID)
-     {
-         $field = Field::create(
+    public function createExtremeGame($gameID)
+    {
+        $field = Field::create(
              [
                  'gameid'       => $gameID,
                  'position1'    => Constants::GAME_INPUT_FIELD,
@@ -72,14 +72,14 @@ class FieldRepository
              ]
          );
 
-         for($i = 0; $i <=9; $i++) {
-             $this->createInnerFields($field->gameid, $i);
-         }
-     }
+        for ($i = 0; $i <= 9; $i++) {
+            $this->createInnerFields($field->gameid, $i);
+        }
+    }
 
-     private function createInnerFields($parentID, $placement)
-     {
-         Field::create(
+    private function createInnerFields($parentID, $placement)
+    {
+        Field::create(
              [
                  'position1'    => Constants::GAME_INPUT_NONE,
                  'position1'    => Constants::GAME_INPUT_NONE,
@@ -94,10 +94,5 @@ class FieldRepository
                  'placement'    => $placement,
              ]
          );
-
-     }
-
-
-
-
+    }
 }
