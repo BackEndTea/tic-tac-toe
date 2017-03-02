@@ -36,7 +36,7 @@ class FieldRepository
       * @param int gameID Game ID to which this field is linked
       *
       * @return Field
-      */ 
+      */
      public function createNormalGame($gameID)
      {
          return Field::create (
@@ -72,7 +72,7 @@ class FieldRepository
              ]
          );
 
-         for($i = 0; $i <=9, $i++) {
+         for($i = 0; $i <=9; $i++) {
              $this->createInnerFields($field->gameid, $i);
          }
      }
