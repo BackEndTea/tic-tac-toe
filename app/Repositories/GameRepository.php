@@ -68,6 +68,11 @@ class GameRepository
          public function create($attributes)
          {
              return Game::create($attributes);
+             
+             if($attributes['gametype'] ==Constants::GAME_TYPE_EXTREME) {
+
+             }
+
          }
 
          /**
