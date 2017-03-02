@@ -19,9 +19,10 @@ class CreateGameTable extends Migration
             $table->char('player1tag', 1)->default('x');
             $table->unsignedInteger('player2id')->nullable();
             $table->char('player2tag', 1)->nullable();
+            $table->unsignedInteger('turn')->default(1);
 
             $table->integer('gamestate')->default(0);
-            $table->integer('gametype'); //To check if normal tic-tac-toe or 'Extreme'
+            $table->integer('gametype');
 
             $table->timestamps();
             $table->dateTime('finished_at')->nullable();

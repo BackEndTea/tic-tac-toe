@@ -23,12 +23,13 @@ class GameRepositoryTest extends TestCase
             [
                 'player1id'     => $user->id,
                 'player1tag'    => 'X',
-                'gametype'      => '0',
+                'gametype'      => Constants::GAME_TYPE_NORMAL,
 
             ]
         );
 
-        $this->assertEquals($game->gameid, $gameRepository->getById($game->gameid)->gameid);
+        $this->assertEquals($game->gameid, $gameRepository
+            ->getById($game->gameid)->gameid);
     }
 
     public function testgetAll()
@@ -104,6 +105,27 @@ class GameRepositoryTest extends TestCase
         $this->assertEquals('B', $game->player1tag);
         $this->assertEquals(Constants::GAME_TYPE_EXTREME, $game->gametype);
 
+
+    }
+
+    public function testSetGameState()
+    {
+        $gameRepository = new GameRepository();
+        factory(User::class, 5)->create();
+        factory(Game::class, 1)->create();
+
+        $this->assertEquals($gameRepository->getById(1)->gamestate,
+            Constants::GAME_STATE_NOT_YET_STARTED);
+
+        $gameRepository->setGameState(1, Constants::GAME_STATE_PLAYING);
+
+        $this->assertEquals($gameRepository->getById(1)->gamestate,
+            Constants::GAME_STATE_PLAYING);
+
+        $gameRepository->setGameState(1, Constants::GAME_STATE_FINISHED);
+
+        $this->assertEquals($gameRepository->getById(1)->gamestate,
+            Constants::GAME_STATE_FINISHED);
 
     }
 
