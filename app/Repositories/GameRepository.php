@@ -67,11 +67,16 @@ class GameRepository
           */
          public function create($attributes)
          {
-             return Game::create($attributes);
-             
-             if($attributes['gametype'] ==Constants::GAME_TYPE_EXTREME) {
+             $game =  Game::create($attributes);
+             $fieldRepository = new FieldRepository();
 
+             if ($attributes['gametype'] ==Constants::GAME_TYPE_EXTREME) {
+                 $fieldRepository->createExtremeGame($game->gameid);
+             } elseif ($attributes['gametype'] ==Constants::GAME_TYPE_NORMAL) {
+                 $fieldRepository->createNormalGame($game->gameid);
              }
+
+             return $game;
 
          }
 
