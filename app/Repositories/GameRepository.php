@@ -67,24 +67,22 @@ class GameRepository
           */
          public function create($attributes)
          {
-             $game =  Game::create($attributes);
+             $game = Game::create($attributes);
              $fieldRepository = new FieldRepository();
 
-             if ($attributes['gametype'] ==Constants::GAME_TYPE_EXTREME) {
+             if ($attributes['gametype'] == Constants::GAME_TYPE_EXTREME) {
                  $fieldRepository->createExtremeGame($game->gameid);
-             } elseif ($attributes['gametype'] ==Constants::GAME_TYPE_NORMAL) {
+             } elseif ($attributes['gametype'] == Constants::GAME_TYPE_NORMAL) {
                  $fieldRepository->createNormalGame($game->gameid);
              }
 
              return $game;
-
          }
 
          /**
           * Updates gamestate of specified game.
           *
           * @param int id gameid
-          *
           * @param int state new gamestate
           *
           * @return Game
@@ -93,10 +91,11 @@ class GameRepository
          {
              $game = Game::where('gameid', $id)->first();
              if ($state == Constants::GAME_STATE_FINISHED) {
-                 $game->finished_at = date("Y-m-d H:i:s");
+                 $game->finished_at = date('Y-m-d H:i:s');
              }
              $game->gamestate = $state;
              $game->save();
+
              return $game;
          }
 }
