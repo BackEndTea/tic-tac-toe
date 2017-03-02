@@ -29,6 +29,7 @@ class User extends Authenticatable
 
     public function games()
     {
-        return $this->hasMany('App\Game', 'player1id')->orWhere('player2id' $this->id);
+        return $this->hasMany('App\Game', 'player1id')
+            ->orWhere('player2id' $this->id));
     }
 }
