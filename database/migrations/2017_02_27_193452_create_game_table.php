@@ -18,7 +18,7 @@ class CreateGameTable extends Migration
             $table->unsignedInteger('player1id');
             $table->char('player1tag', 1)->default('x');
             $table->unsignedInteger('player2id')->nullable();
-            $table->char('player2tag', 1)->nullable();
+            $table->char('player2tag', 1)->default('o');
             $table->unsignedInteger('turn')->default(1);
 
             $table->integer('gamestate')->default(0);

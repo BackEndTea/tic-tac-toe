@@ -2,8 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Field;
 use App\Game;
 use App\Repositories\GameRepository;
+use App\Repositories\UserRepository;
 use App\User;
 use App\Util\Constants;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -105,6 +107,7 @@ class GameRepositoryTest extends TestCase
         $this->assertEquals(1, $game->player1id);
         $this->assertEquals('B', $game->player1tag);
         $this->assertEquals(Constants::GAME_TYPE_EXTREME, $game->gametype);
+        $this->assertDatabaseHas('field', ['gameid' => $game->gameid]);
     }
 
     public function testSetGameState()
@@ -126,6 +129,31 @@ class GameRepositoryTest extends TestCase
         $this->assertEquals($gameRepository->getById(1)->gamestate,
             Constants::GAME_STATE_FINISHED);
     }
+
+    public function testPlayerOneRelation()
+    {
+        $gameRepository = new GameRepository();
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->create(
+            [
+                'name'      => 'player',
+                'email'     => 'player@example.com',
+                'password'  => bcrypt('password123'),
+            ]
+        );
+
+        $game = $gameRepository->create(
+            [
+                'player1id'     => $user->id,
+                'gametype'      => Constants::GAME_TYPE_NORMAL,
+            ]
+        );
+
+        $this->assertEquals($user->id, $gameRepository->getPlayerOne($game->gameid)->id) ;
+    }
+
+
 
     /**
      * Will create 1 user for testing purposes.
