@@ -150,10 +150,8 @@ class GameRepositoryTest extends TestCase
             ]
         );
 
-        $this->assertEquals($user->id, $gameRepository->getPlayerOne($game->gameid)->id) ;
+        $this->assertEquals($user->id, $gameRepository->getPlayerOne($game->gameid)->id);
     }
-
-
 
     /**
      * Will create 1 user for testing purposes.

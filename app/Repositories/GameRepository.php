@@ -61,31 +61,27 @@ class GameRepository
             return Game::where('gamestate', Constants::GAME_STATE_FINISHED)->get();
         }
 
-        /**
-         *
-         *
-         *
-         *
-         */
-         public function getPlayerOne($id)
-         {
-             $game = $this->getById($id);
-             return User::where('id', $game->player1id)->first();
-         }
+    public function getPlayerOne($id)
+    {
+        $game = $this->getById($id);
 
-         public function getPlayerTwo($id)
-         {
-             $game = $this->getById($id);
-             return User::where('id', $game->player2id)->first();
-         }
+        return User::where('id', $game->player1id)->first();
+    }
 
-         public function getPlayers($id)
-         {
-             $game = $this->getById($id);
-             return User::where('id', $game->player1id)
+    public function getPlayerTwo($id)
+    {
+        $game = $this->getById($id);
+
+        return User::where('id', $game->player2id)->first();
+    }
+
+    public function getPlayers($id)
+    {
+        $game = $this->getById($id);
+
+        return User::where('id', $game->player1id)
              ->orWhere('id', $game->player2id)->get();
-
-         }
+    }
 
          /**
           * Creates a new game.
