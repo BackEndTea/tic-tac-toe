@@ -99,14 +99,14 @@ class FieldRepository
         Field::create(
              [
                  'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
-                 'position1'    => Constants::GAME_INPUT_NONE,
+                 'position2'    => Constants::GAME_INPUT_NONE,
+                 'position3'    => Constants::GAME_INPUT_NONE,
+                 'position4'    => Constants::GAME_INPUT_NONE,
+                 'position5'    => Constants::GAME_INPUT_NONE,
+                 'position6'    => Constants::GAME_INPUT_NONE,
+                 'position7'    => Constants::GAME_INPUT_NONE,
+                 'position8'    => Constants::GAME_INPUT_NONE,
+                 'position9'    => Constants::GAME_INPUT_NONE,
                  'parentid'     => $parentID,
                  'placement'    => $placement,
              ]

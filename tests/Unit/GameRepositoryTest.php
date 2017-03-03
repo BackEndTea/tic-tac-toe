@@ -32,7 +32,7 @@ class GameRepositoryTest extends TestCase
             ->getById($game->gameid)->gameid);
     }
 
-    public function testgetAll()
+    public function testGetAll()
     {
         $gameRepository = new GameRepository();
         factory(User::class, 5)->create();
@@ -86,6 +86,8 @@ class GameRepositoryTest extends TestCase
             $gameRepository->setGameState($i, Constants::GAME_STATE_FINISHED);
         }
         $this->assertEquals(5, count($gameRepository->getFinishedGames()));
+        $this->assertEquals(null, $gameRepository->getById(1)->finished_at);
+        $this->assertNotEquals(null, $gameRepository->getById(10)->finished_at);
     }
 
     public function testCreate()
