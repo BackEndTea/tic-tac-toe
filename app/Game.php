@@ -33,4 +33,15 @@ class Game extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsTo('App\User', 'id', 'player1id')
+            ->orwhere('id', $this->player2id);
+    }
+
+    public function field()
+    {
+        return $this->hasOne('App\Field', 'gameid', 'gameid');
+    }
 }

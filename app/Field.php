@@ -33,4 +33,19 @@ class Field extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function fields()
+    {
+        return $this->hasMany('App\Field', 'parentid', 'fieldid');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Field', 'fieldid', 'parentid');
+    }
+
+    public function game()
+    {
+        return $this->belongsTo('App\Game', 'gameid', 'gameid');
+    }
 }
