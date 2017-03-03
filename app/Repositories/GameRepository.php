@@ -61,16 +61,17 @@ class GameRepository
             return Game::where('gamestate', Constants::GAME_STATE_FINISHED)->get();
         }
 
-        /**
-         * Retrieves the player 1 of the game.
-         *
-         * @param int id Game id
-         *
-         * @return User
-         */
+         /**
+          * Retrieves the player 1 of the game.
+          *
+          * @param int id Game id
+          *
+          * @return User
+          */
          public function getPlayerOne($id)
          {
              $game = $this->getById($id);
+
              return User::where('id', $game->player1id)->first();
          }
 
@@ -84,6 +85,7 @@ class GameRepository
          public function getPlayerTwo($id)
          {
              $game = $this->getById($id);
+
              return User::where('id', $game->player2id)->first();
          }
 
@@ -97,9 +99,9 @@ class GameRepository
          public function getPlayers($id)
          {
              $game = $this->getById($id);
+
              return User::where('id', $game->player1id)
              ->orWhere('id', $game->player2id)->get();
-
          }
 
          /**
