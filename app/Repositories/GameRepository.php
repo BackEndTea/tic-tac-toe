@@ -106,6 +106,8 @@ class GameRepository
           * Creates a new game.
           *
           * @param array $attributes
+          *
+          * @return Game
           */
          public function create($attributes)
          {

@@ -94,6 +94,13 @@ class UserRepository
             ->get();
     }
 
+    /**
+     * Creates a new User.
+     *
+     * @param array $attributes
+     *
+     * @return User
+     */
     public function create($attributes)
     {
         return User::create($attributes);
