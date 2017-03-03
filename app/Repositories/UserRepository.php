@@ -2,14 +2,13 @@
 
 namespace App\Repositories;
 
-use App\User;
 use App\Game;
+use App\User;
 use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
-
     /**
      * Return Game with given id from database.
      *
