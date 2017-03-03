@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
+
     /**
      * Return Game with given id from database.
      *
@@ -40,7 +41,7 @@ class UserRepository
      */
     public function getAllGames($id)
     {
-        return User::find($id)->games;
+        return Game::where('player1id', $id)->orWhere('player2id', $id)->get();
     }
 
     /**
@@ -52,8 +53,12 @@ class UserRepository
      */
     public function getStartingGames($id)
     {
-        return User::find($id)->games()->where('gamestate',
-            Constants::GAME_STATE_NOT_YET_STARTED)->get();
+        return Game::where(function ($query) use ($id) {
+            $query->where('player1id', $id)
+                ->where('gamestate', Constants::GAME_STATE_NOT_YET_STARTED);
+        })->orWhere('player2id', $id)
+            ->where('gamestate', Constants::GAME_STATE_NOT_YET_STARTED)
+            ->get();
     }
 
     /**
@@ -65,8 +70,12 @@ class UserRepository
      */
     public function getPlayingGames($id)
     {
-        return User::find($id)->games()->where('gamestate',
-            Constants::GAME_STATE_PLAYING)->get();
+        return Game::where(function ($query) use ($id) {
+            $query->where('player1id', $id)
+                ->where('gamestate', Constants::GAME_STATE_PLAYING);
+        })->orWhere('player2id', $id)
+            ->where('gamestate', Constants::GAME_STATE_PLAYING)
+            ->get();
     }
 
     /**
@@ -78,8 +87,12 @@ class UserRepository
      */
     public function getFinishedGames($id)
     {
-        return User::where('id', $id)->games()->where('gamestate',
-            Constants::GAME_STATE_FINISHED)->get();
+        return Game::where(function ($query) use ($id) {
+            $query->where('player1id', $id)
+                ->where('gamestate', Constants::GAME_STATE_FINISHED);
+        })->orWhere('player2id', $id)
+            ->where('gamestate', Constants::GAME_STATE_FINISHED)
+            ->get();
     }
 
     public function create($attributes)

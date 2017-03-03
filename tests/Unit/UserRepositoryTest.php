@@ -6,6 +6,7 @@ use App\Game;
 use App\Repositories\GameRepository;
 use App\Repositories\UserRepository;
 use App\User;
+use App\Util\Constants;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -55,8 +56,9 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals(10, count($userRepository->getStartingGames($user->id)));
 
         for ($i = 1; $i <=5; $i++){
-            $gameRepository->getById($i)->setGameState(Constants::GAME_STATE_PLAYING);
+            $gameRepository->setGameState($i,Constants::GAME_STATE_PLAYING);
         }
+        $this->assertEquals(5, count($gameRepository->getPlayingGames()));
 
         $this->assertEquals(5, count($userRepository->getStartingGames($user->id)));
 
@@ -71,7 +73,7 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals(0, count($userRepository->getPlayingGames($user->id)));
 
         for ($i = 1; $i <=5; $i++){
-            $gameRepository->getById($i)->setGameState(Constants::GAME_STATE_PLAYING);
+            $gameRepository->setGameState($i, Constants::GAME_STATE_PLAYING);
         }
 
         $this->assertEquals(5, count($userRepository->getStartingGames($user->id)));
@@ -84,16 +86,16 @@ class UserRepositoryTest extends TestCase
         $gameRepository = new GameRepository();
         $user = $this->mockAUserWithGames();
 
-        $this->assertEquals(00, count($userRepository->getFinishedGames($user->id)));
+        $this->assertEquals(0, count($userRepository->getFinishedGames($user->id)));
 
         for ($i = 1; $i <=5; $i++){
-            $gameRepository->getById($i)->setGameState(Constants::GAME_STATE_PLAYING);
+            $gameRepository->setGameState($i, Constants::GAME_STATE_PLAYING);
         }
 
         $this->assertEquals(0, count($userRepository->getFinishedGames($user->id)));
 
         for ($i = 6; $i <=10; $i++){
-            $gameRepository->getById($i)->setGameState(Constants::GAME_STATE_FINISHED);
+            $gameRepository->setGameState($i, Constants::GAME_STATE_FINISHED);
         }
 
         $this->assertEquals(5, count($userRepository->getFinishedGames($user->id)));

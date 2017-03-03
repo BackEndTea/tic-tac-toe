@@ -27,9 +27,5 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function games()
-    {
-        return $this->hasMany('App\Game', 'player1id')
-        ->orWhere('player2id', $this->id);
-    }
+
 }
