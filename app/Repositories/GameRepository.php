@@ -62,10 +62,11 @@ class GameRepository
         }
 
         /**
+         * Retrieves the player 1 of the game.
          *
+         * @param int id Game id
          *
-         *
-         *
+         * @return User
          */
          public function getPlayerOne($id)
          {
@@ -73,12 +74,26 @@ class GameRepository
              return User::where('id', $game->player1id)->first();
          }
 
+         /**
+          * Retrieves the player 2 of the game.
+          *
+          * @param int id Game id
+          *
+          * @return User
+          */
          public function getPlayerTwo($id)
          {
              $game = $this->getById($id);
              return User::where('id', $game->player2id)->first();
          }
 
+         /**
+          * Retrieves the both playersof the game.
+          *
+          * @param int id Game id
+          *
+          * @return Collection|User[]
+          */
          public function getPlayers($id)
          {
              $game = $this->getById($id);
