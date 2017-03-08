@@ -8,7 +8,6 @@ use App\Repositories\UserRepository;
 use App\User;
 use App\Util\Constants;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
@@ -111,8 +110,8 @@ class UserRepositoryTest extends TestCase
             ]
         );
 
-        $this->assertDatabaseHas('users',['name' => 'Mark']);
-        $this->assertDatabaseHas('users',['email'=> 'mark@example.com']);
+        $this->assertDatabaseHas('users', ['name' => 'Mark']);
+        $this->assertDatabaseHas('users', ['email'=> 'mark@example.com']);
     }
 
     private function mockAUserWithGames()
