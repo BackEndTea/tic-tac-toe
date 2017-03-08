@@ -92,7 +92,6 @@ class GameRepositoryTest extends TestCase
         $this->assertNotEquals(null, $gameRepository->getById(10)->finished_at);
     }
 
-
     public function testCreate()
     {
         $gameRepository = new GameRepository();
@@ -145,11 +144,9 @@ class GameRepositoryTest extends TestCase
 
         $game = $this->mockAGame($userOne->id);
 
-        $gameRepository->setPlayerTwo($game->gameid,$userTwo->id);
+        $gameRepository->setPlayerTwo($game->gameid, $userTwo->id);
 
         $this->assertDatabaseHas('games', ['player2id' => $userTwo->id]);
-
-
     }
 
     public function testPlayerOneRelation()
@@ -184,7 +181,6 @@ class GameRepositoryTest extends TestCase
         $game->save();
 
         $this->assertEquals($gameRepository->getPlayerTwo($game->gameid)->id, $userTwo->id);
-
     }
 
     /**
