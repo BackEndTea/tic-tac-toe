@@ -8,6 +8,7 @@ use App\Repositories\UserRepository;
 use App\User;
 use App\Util\Constants;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
@@ -96,6 +97,22 @@ class UserRepositoryTest extends TestCase
         }
 
         $this->assertEquals(5, count($userRepository->getFinishedGames($user->id)));
+    }
+
+    public function testCreate()
+    {
+        $userRepository = new UserRepository();
+
+        $userRepository->create(
+            [
+                'name'      => 'Mark',
+                'email'     => 'mark@example.com',
+                'password'  => bcrypt('password123'),
+            ]
+        );
+
+        $this->assertDatabaseHas('users',['name' => 'Mark']);
+        $this->assertDatabaseHas('users',['email'=> 'mark@example.com']);
     }
 
     private function mockAUserWithGames()

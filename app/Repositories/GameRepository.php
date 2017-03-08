@@ -144,4 +144,20 @@ class GameRepository
 
              return $game;
          }
+
+         /**
+          * Sets the second player for a game.
+          *
+          * @param int gameID ID of the game
+          * @param int userID ID of the player 2
+          *
+          * @return Game
+          */
+          public function setPlayerTwo($gameID, $userID)
+          {
+              $game = Game::find($gameID);
+              $game->player2id = $userID;
+              $game->save();
+              return $game;
+          }
 }

@@ -92,6 +92,7 @@ class GameRepositoryTest extends TestCase
         $this->assertNotEquals(null, $gameRepository->getById(10)->finished_at);
     }
 
+
     public function testCreate()
     {
         $gameRepository = new GameRepository();
@@ -130,27 +131,60 @@ class GameRepositoryTest extends TestCase
             Constants::GAME_STATE_FINISHED);
     }
 
+    public function testSetPlayerTwo()
+    {
+        $gameRepository = new GameRepository();
+        $userOne = $this->mockAUser();
+        $userTwo = User::create(
+            [
+                'name'      => 'Wollah',
+                'email'     => 'ikbeneen@vietnamees.com',
+                'password'  => bcrypt('password456'),
+            ]
+        );
+
+        $game = $this->mockAGame($userOne->id);
+
+        $gameRepository->setPlayerTwo($game->gameid,$userTwo->id);
+
+        $this->assertDatabaseHas('games', ['player2id' => $userTwo->id]);
+
+
+    }
+
     public function testPlayerOneRelation()
     {
         $gameRepository = new GameRepository();
         $userRepository = new UserRepository();
 
-        $user = $userRepository->create(
-            [
-                'name'      => 'player',
-                'email'     => 'player@example.com',
-                'password'  => bcrypt('password123'),
-            ]
-        );
+        $user = $this->mockaUser();
 
-        $game = $gameRepository->create(
-            [
-                'player1id'     => $user->id,
-                'gametype'      => Constants::GAME_TYPE_NORMAL,
-            ]
-        );
+        $game = $this->mockAGame($user->id);
 
         $this->assertEquals($user->id, $gameRepository->getPlayerOne($game->gameid)->id);
+    }
+
+    public function testPlayerTwoRelation()
+    {
+        $gameRepository = new GameRepository();
+        $userRepository = new UserRepository();
+
+        $user = $this->mockAUser();
+        $game = $this->mockAGame($user->id);
+
+        $userTwo = User::create(
+            [
+                'name'      => 'Wollah',
+                'email'     => 'ikbeneen@vietnamees.com',
+                'password'  => bcrypt('password456'),
+            ]
+        );
+        $game = Game::find(1);
+        $game->player2id = $userTwo->id;
+        $game->save();
+
+        $this->assertEquals($gameRepository->getPlayerTwo($game->gameid)->id, $userTwo->id);
+
     }
 
     /**
@@ -163,6 +197,19 @@ class GameRepositoryTest extends TestCase
                 'name'      => 'John Doe',
                 'email'     => 'johndoe@example.com',
                 'password'  => bcrypt('secret'),
+            ]
+        );
+    }
+
+    /**
+     * Will create 1 game for testing purposes.
+     */
+    private function mockAGame($userID)
+    {
+        return Game::create(
+            [
+                'player1id'     => $userID,
+                'gametype'      => Constants::GAME_TYPE_NORMAL,
             ]
         );
     }
