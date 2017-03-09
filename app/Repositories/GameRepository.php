@@ -104,6 +104,11 @@ class GameRepository
              ->orWhere('id', $game->player2id)->get();
          }
 
+         public function getFields($id)
+         {
+             return Game::find($id)->fields()->get();
+         }
+
          /**
           * Creates a new game.
           *

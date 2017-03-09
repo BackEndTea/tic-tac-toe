@@ -187,6 +187,30 @@ class GameRepositoryTest extends TestCase
 
     }
 
+    public function testFieldRelationNormal()
+    {
+        $user = $this->mockAUser();
+        $gameRepository = new GameRepository();
+        $game = $gameRepository->create(
+            [
+                'player1id'     =>$user->id,
+                'gametype'      => Constants::GAME_TYPE_NORMAL
+            ]
+        );
+
+
+        $fields = $gameRepository->getFields($game->gameid);
+
+        $this->assertEquals(1, $fields->first()->fieldid);
+
+    }
+
+    public function testFieldRelationExtreme()
+    {
+        $user = $this->mockAUser();
+
+    }
+
     /**
      * Will create 1 user for testing purposes.
      */

@@ -33,4 +33,9 @@ class Game extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function fields()
+    {
+        return $this->hasMany('App\Field', 'gameid', 'gameid');
+    }
 }
