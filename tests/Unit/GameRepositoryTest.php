@@ -92,7 +92,6 @@ class GameRepositoryTest extends TestCase
         $this->assertNotEquals(null, $gameRepository->getById(10)->finished_at);
     }
 
-
     public function testCreate()
     {
         $gameRepository = new GameRepository();
@@ -145,7 +144,7 @@ class GameRepositoryTest extends TestCase
 
         $game = $this->mockAGame($userOne->id);
 
-        $gameRepository->setPlayerTwo($game->gameid,$userTwo->id);
+        $gameRepository->setPlayerTwo($game->gameid, $userTwo->id);
 
         $this->assertDatabaseHas('games', ['player2id' => $userTwo->id]);
     }
@@ -160,7 +159,6 @@ class GameRepositoryTest extends TestCase
 
         $this->assertDatabaseHas('games', ['player1tag'=> 'B']);
         $this->assertNotEquals(Game::find($game->gameid)->player2tag, 'B');
-
     }
 
     public function testSetPlayerTwoTag()
@@ -173,7 +171,6 @@ class GameRepositoryTest extends TestCase
 
         $this->assertNotEquals(Game::find($game->gameid)->player1tag, 'V');
         $this->assertDatabaseHas('games', ['player2tag'=> 'V']);
-
     }
 
     public function testPlayerOneRelation()
@@ -208,7 +205,6 @@ class GameRepositoryTest extends TestCase
         $game->save();
 
         $this->assertEquals($gameRepository->getPlayerTwo($game->gameid)->id, $userTwo->id);
-
     }
 
     public function testPlayersRelation()
@@ -230,15 +226,15 @@ class GameRepositoryTest extends TestCase
         $game->player2id = $userTwo->id;
         $game->save();
 
-        $this->assertEquals(2,count($gameRepository->getPlayers($game->gameid)));
+        $this->assertEquals(2, count($gameRepository->getPlayers($game->gameid)));
         $this->assertEquals($user->id, $gameRepository
             ->getPlayers($game->gameid)->first()->id);
         $this->assertEquals($userTwo->id, $gameRepository
             ->getPlayers($game->gameid)->reverse()->first()->id);
 
-        $this->assertNotEquals($user->id,$gameRepository
+        $this->assertNotEquals($user->id, $gameRepository
             ->getPlayers($game->gameid)->reverse()->first()->id);
-        $this->assertNotEquals($userTwo->id,$gameRepository
+        $this->assertNotEquals($userTwo->id, $gameRepository
             ->getPlayers($game->gameid)->first()->id);
     }
 
@@ -248,8 +244,8 @@ class GameRepositoryTest extends TestCase
         $gameRepository = new GameRepository();
         $game = $gameRepository->create(
             [
-                'player1id'     =>$user->id,
-                'gametype'      => Constants::GAME_TYPE_NORMAL
+                'player1id'     => $user->id,
+                'gametype'      => Constants::GAME_TYPE_NORMAL,
             ]
         );
 
@@ -257,7 +253,6 @@ class GameRepositoryTest extends TestCase
 
         $this->assertEquals(1, $fields->first()->fieldid);
         $this->assertEquals($game->gameid, $fields->first()->gameid);
-
     }
 
     public function testFieldRelationExtreme()
@@ -266,15 +261,14 @@ class GameRepositoryTest extends TestCase
         $gameRepository = new GameRepository();
         $game = $gameRepository->create(
             [
-                'player1id'     =>$user->id,
-                'gametype'      => Constants::GAME_TYPE_EXTREME
+                'player1id'     => $user->id,
+                'gametype'      => Constants::GAME_TYPE_EXTREME,
             ]
         );
         $fields = $gameRepository->getFields($game->gameid);
 
         $this->assertEquals(1, $fields->first()->fieldid);
         $this->assertEquals($game->gameid, $fields->first()->gameid);
-
     }
 
     /**
