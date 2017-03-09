@@ -104,6 +104,13 @@ class GameRepository
              ->orWhere('id', $game->player2id)->get();
          }
 
+         /**
+          * Retrieves the fields of a game.
+          *
+          * @param int id Game id
+          *
+          * @return Collection|Field[]
+          */
          public function getFields($id)
          {
              return Game::find($id)->fields()->get();
@@ -162,6 +169,38 @@ class GameRepository
           {
               $game = Game::find($gameID);
               $game->player2id = $userID;
+              $game->save();
+              return $game;
+          }
+
+          /**
+           * Sets the first players tag for a game.
+           *
+           * @param int gameID ID of the game
+           * @param char userTag tag the player wants to use
+           *
+           * @return Game
+           */
+          public function setPlayerOneTag($gameID, $userTag)
+          {
+              $game = Game::find($gameID);
+              $game->player1tag = $userTag;
+              $game->save();
+              return $game;
+          }
+
+          /**
+           * Sets the second players tag for a game.
+           *
+           * @param int gameID ID of the game
+           * @param char userTag tag the player wants to use
+           *
+           * @return Game
+           */
+          public function setPlayerTwoTag($gameID, $userTag)
+          {
+              $game = Game::find($gameID);
+              $game->player2tag = $userTag;
               $game->save();
               return $game;
           }

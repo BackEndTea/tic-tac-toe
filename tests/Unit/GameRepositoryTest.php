@@ -148,7 +148,31 @@ class GameRepositoryTest extends TestCase
         $gameRepository->setPlayerTwo($game->gameid,$userTwo->id);
 
         $this->assertDatabaseHas('games', ['player2id' => $userTwo->id]);
+    }
 
+    public function testSetPlayerOneTag()
+    {
+        $gameRepository = new GameRepository();
+        $userOne = $this->mockAUser();
+        $game = $this->mockAGame($userOne->id);
+
+        $gameRepository->setPlayerOneTag($game->gameid, 'B');
+
+        $this->assertDatabaseHas('games', ['player1tag'=> 'B']);
+        $this->assertNotEquals(Game::find($game->gameid)->player2tag, 'B');
+
+    }
+
+    public function testSetPlayerTwoTag()
+    {
+        $gameRepository = new GameRepository();
+        $userOne = $this->mockAUser();
+        $game = $this->mockAGame($userOne->id);
+
+        $gameRepository->setPlayerTwoTag($game->gameid, 'V');
+
+        $this->assertNotEquals(Game::find($game->gameid)->player1tag, 'V');
+        $this->assertDatabaseHas('games', ['player2tag'=> 'V']);
 
     }
 
@@ -179,12 +203,43 @@ class GameRepositoryTest extends TestCase
                 'password'  => bcrypt('password456'),
             ]
         );
-        $game = Game::find(1);
+
         $game->player2id = $userTwo->id;
         $game->save();
 
         $this->assertEquals($gameRepository->getPlayerTwo($game->gameid)->id, $userTwo->id);
 
+    }
+
+    public function testPlayersRelation()
+    {
+        $gameRepository = new GameRepository();
+        $userRepository = new UserRepository();
+
+        $user = $this->mockAUser();
+        $game = $this->mockAGame($user->id);
+
+        $userTwo = User::create(
+            [
+                'name'      => 'Wollah',
+                'email'     => 'ikbeneen@vietnamees.com',
+                'password'  => bcrypt('password456'),
+            ]
+        );
+
+        $game->player2id = $userTwo->id;
+        $game->save();
+
+        $this->assertEquals(2,count($gameRepository->getPlayers($game->gameid)));
+        $this->assertEquals($user->id, $gameRepository
+            ->getPlayers($game->gameid)->first()->id);
+        $this->assertEquals($userTwo->id, $gameRepository
+            ->getPlayers($game->gameid)->reverse()->first()->id);
+
+        $this->assertNotEquals($user->id,$gameRepository
+            ->getPlayers($game->gameid)->reverse()->first()->id);
+        $this->assertNotEquals($userTwo->id,$gameRepository
+            ->getPlayers($game->gameid)->first()->id);
     }
 
     public function testFieldRelationNormal()
@@ -198,16 +253,27 @@ class GameRepositoryTest extends TestCase
             ]
         );
 
-
         $fields = $gameRepository->getFields($game->gameid);
 
         $this->assertEquals(1, $fields->first()->fieldid);
+        $this->assertEquals($game->gameid, $fields->first()->gameid);
 
     }
 
     public function testFieldRelationExtreme()
     {
         $user = $this->mockAUser();
+        $gameRepository = new GameRepository();
+        $game = $gameRepository->create(
+            [
+                'player1id'     =>$user->id,
+                'gametype'      => Constants::GAME_TYPE_EXTREME
+            ]
+        );
+        $fields = $gameRepository->getFields($game->gameid);
+
+        $this->assertEquals(1, $fields->first()->fieldid);
+        $this->assertEquals($game->gameid, $fields->first()->gameid);
 
     }
 
