@@ -11,7 +11,7 @@ class Field extends Model
     *
     * @var string
     */
-   protected $table = 'field';
+   protected $table = 'fields';
 
     /**
      * The primary key for the model.

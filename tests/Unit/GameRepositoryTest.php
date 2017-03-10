@@ -107,7 +107,7 @@ class GameRepositoryTest extends TestCase
         $this->assertEquals(1, $game->player1id);
         $this->assertEquals('B', $game->player1tag);
         $this->assertEquals(Constants::GAME_TYPE_EXTREME, $game->gametype);
-        $this->assertDatabaseHas('field', ['gameid' => $game->gameid]);
+        $this->assertDatabaseHas('fields', ['gameid' => $game->gameid]);
     }
 
     public function testSetGameState()
