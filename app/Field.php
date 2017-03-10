@@ -41,7 +41,7 @@ class Field extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\Field', 'fieldid', 'parentid');
+        return $this->hasOne('App\Field', 'fieldid', 'parentid');
     }
 
     public function game()

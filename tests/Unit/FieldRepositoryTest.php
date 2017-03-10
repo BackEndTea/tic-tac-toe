@@ -146,7 +146,7 @@ class FieldRepositoryTest extends TestCase
         $fieldRepository->getGame($field->fieldid);
 
         $this->assertEquals(1,
-            $fieldRepository->getGame($field->fieldid)->first()->gameid);
+            $fieldRepository->getGame($field->fieldid)->gameid);
     }
 
     public function testInnerFieldsRelation()
@@ -169,8 +169,9 @@ class FieldRepositoryTest extends TestCase
         $fieldRepository = new FieldRepository();
         $field = $fieldRepository->createExtremeGame($game->gameid);
 
-        $this->assertEquals($field->gameid,
-            $fieldRepository->getParentField(5)->first()->gameid);
+        $parent = $fieldRepository->getParentField(2);
+
+        $this->assertEquals($field->fieldid, $parent->fieldid);
     }
 
     private function mockTestField()

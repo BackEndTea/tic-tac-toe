@@ -79,7 +79,7 @@ class FieldRepository
              ]
          );
 
-         for ($i = 0; $i <= 9; $i++) {
+         for ($i = 1; $i <= 9; $i++) {
              $this->createInnerFields($field->fieldid, $i);
          }
 
@@ -122,7 +122,7 @@ class FieldRepository
       */
      public function getGame($fieldId)
      {
-         return Field::find($fieldId)->game()->get();
+         return Field::find($fieldId)->game()->get()->first();
      }
 
       /**
@@ -146,6 +146,6 @@ class FieldRepository
         */
        public function getParentField($fieldId)
        {
-           return Field::find($fieldId)->parent()->get();
+           return Field::find($fieldId)->parent()->get()->first();
        }
 }
