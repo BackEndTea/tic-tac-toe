@@ -99,14 +99,14 @@ class FieldRepositoryTest extends TestCase
                 'position7'  => Constants::GAME_INPUT_NONE,
                 'position8'  => Constants::GAME_INPUT_NONE,
                 'position9'  => Constants::GAME_INPUT_NONE,
-                'parentid'  => $field->fieldid,
-                'placement' => 1,
-                'lastplay'  => null,
+                'parentid'   => $field->fieldid,
+                'placement'  => 1,
+                'lastplay'   => null,
             ]
         );
         $this->assertDatabaseHas('fields',
             [
-                'gameid'    => null,
+                'gameid'     => null,
                 'position1'  => Constants::GAME_INPUT_NONE,
                 'position2'  => Constants::GAME_INPUT_NONE,
                 'position3'  => Constants::GAME_INPUT_NONE,
@@ -121,6 +121,58 @@ class FieldRepositoryTest extends TestCase
                 'lastplay'  => null,
             ]
         );
+    }
+
+    public function testGameRelation()
+    {
+        factory(User::class, 5)->create();
+        factory(Game::class, 5)->create();
+        $fieldRepository = new FieldRepository();
+
+        $field = Field::create(
+            [
+                'gameid'        => 1,
+                'position1'     => Constants::GAME_INPUT_NONE,
+                'position2'     => Constants::GAME_INPUT_NONE,
+                'position3'     => Constants::GAME_INPUT_NONE,
+                'position4'     => Constants::GAME_INPUT_NONE,
+                'position5'     => Constants::GAME_INPUT_NONE,
+                'position6'     => Constants::GAME_INPUT_NONE,
+                'position7'     => Constants::GAME_INPUT_NONE,
+                'position8'     => Constants::GAME_INPUT_NONE,
+                'position9'     => Constants::GAME_INPUT_NONE,
+
+            ]
+        );
+
+        $fieldRepository->getGame($field->fieldid);
+
+        $this->assertEquals(1,
+            $fieldRepository->getGame($field->fieldid)->first()->gameid);
+    }
+
+    public function testInnerFieldsRelation()
+    {
+        $user = $this->mockAUser();
+        $game = $this->mockAGame($user->id, Constants::GAME_TYPE_EXTREME);
+        $fieldRepository = new FieldRepository();
+        $field = $fieldRepository->createExtremeGame($game->gameid);
+        $fields = $fieldRepository->getInnerFields($field->fieldid);
+
+        foreach ($fields as $inner) {
+            $this->assertEquals($field->fieldid, $inner->parentid);
+        }
+    }
+
+    public function testParentFieldRelation()
+    {
+        $user = $this->mockAUser();
+        $game = $this->mockAGame($user->id, Constants::GAME_TYPE_EXTREME);
+        $fieldRepository = new FieldRepository();
+        $field = $fieldRepository->createExtremeGame($game->gameid);
+
+        $this->assertEquals($field->gameid,
+            $fieldRepository->getParentField(5)->first()->gameid);
 
     }
 
