@@ -7,13 +7,11 @@ use App\Game;
 use App\Repositories\FieldRepository;
 use App\User;
 use App\Util\Constants;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class FieldRepositoryTest extends TestCase
 {
-
     use DatabaseMigrations;
 
     public function testGetById()
@@ -69,7 +67,7 @@ class FieldRepositoryTest extends TestCase
 
         $field = $fieldRepository->createExtremeGame(1);
 
-        $this->assertDatabaseHas( 'fields',
+        $this->assertDatabaseHas('fields',
             [
                 'gameid'    => 1,
                 'fieldid'   => $field->fieldid,
@@ -89,7 +87,7 @@ class FieldRepositoryTest extends TestCase
         );
         $this->assertDatabaseHas('fields',
             [
-                'gameid'    => null,
+                'gameid'     => null,
                 'position1'  => Constants::GAME_INPUT_NONE,
                 'position2'  => Constants::GAME_INPUT_NONE,
                 'position3'  => Constants::GAME_INPUT_NONE,
@@ -116,9 +114,9 @@ class FieldRepositoryTest extends TestCase
                 'position7'  => Constants::GAME_INPUT_NONE,
                 'position8'  => Constants::GAME_INPUT_NONE,
                 'position9'  => Constants::GAME_INPUT_NONE,
-                'parentid'  => $field->fieldid,
-                'placement' => 9,
-                'lastplay'  => null,
+                'parentid'   => $field->fieldid,
+                'placement'  => 9,
+                'lastplay'   => null,
             ]
         );
     }
@@ -173,14 +171,12 @@ class FieldRepositoryTest extends TestCase
 
         $this->assertEquals($field->gameid,
             $fieldRepository->getParentField(5)->first()->gameid);
-
     }
 
     private function mockTestField()
     {
         return $this->mockAField($this->mockAGame(
             $this->mockaUser()->id, Constants::GAME_TYPE_NORMAL)->gameid);
-
     }
 
     private function mockAField($gameid)
@@ -198,10 +194,8 @@ class FieldRepositoryTest extends TestCase
                 'position8'     => Constants::GAME_INPUT_NONE,
                 'position9'     => Constants::GAME_INPUT_NONE,
 
-
             ]
         );
-
     }
 
     private function mockAGame($userID, $gameType)
@@ -212,7 +206,6 @@ class FieldRepositoryTest extends TestCase
                 'gametype'      => $gameType,
             ]
         );
-
     }
 
     private function mockAUser()
@@ -231,7 +224,5 @@ class FieldRepositoryTest extends TestCase
         factory(User::class, 5)->create();
         factory(Game::class, 5)->create();
         factory(Field::class, 5)->create();
-
     }
-
 }

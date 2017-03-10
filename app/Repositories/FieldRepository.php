@@ -113,40 +113,39 @@ class FieldRepository
          );
     }
 
-    /**
-     * Gets the game responsible for the field.
-     *
-     * @param int fieldId ID of the field
-     *
-     * @return Collection|Field[]
-     */
-     public function getGame($fieldId)
-     {
-         return Field::find($fieldId)->game()->get();
-     }
-
      /**
-      * Gets the inner fields of the specified field.
+      * Gets the game responsible for the field.
       *
       * @param int fieldId ID of the field
       *
       * @return Collection|Field[]
       */
+     public function getGame($fieldId)
+     {
+         return Field::find($fieldId)->game()->get();
+     }
+
+      /**
+       * Gets the inner fields of the specified field.
+       *
+       * @param int fieldId ID of the field
+       *
+       * @return Collection|Field[]
+       */
       public function getInnerFields($fieldId)
       {
           return Field::find($fieldId)->fields()->get();
       }
 
-      /**
-       * Gets the parrent field of the speicifeld inner field.
-       *
-       * @param int fieldId fieldId of the field
-       *
-       * @return Collection|Field[]
-       */
+       /**
+        * Gets the parrent field of the speicifeld inner field.
+        *
+        * @param int fieldId fieldId of the field
+        *
+        * @return Collection|Field[]
+        */
        public function getParentField($fieldId)
        {
            return Field::find($fieldId)->parent()->get();
-
        }
 }

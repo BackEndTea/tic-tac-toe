@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Field;
 use App\Game;
 use App\Repositories\GameRepository;
 use App\Repositories\UserRepository;
