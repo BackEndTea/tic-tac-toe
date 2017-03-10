@@ -148,4 +148,30 @@ class FieldRepository
        {
            return Field::find($fieldId)->parent()->get()->first();
        }
+
+       public function makeMove($gameid,$userid,$move)
+       {
+           $game = Game::find($gameid);
+           $field = $game->fields()->get();
+           if ($game->gametype = Constants::GAME_TYPE_NORMAL)
+           {
+
+           }
+       }
+
+       private function makeInnerMove($move, $field, $userID)
+       {
+
+       }
+
+       private function getUserTag($gameid, $userid)
+       {
+           $game = Game::find($gameid);
+
+           if ($game->player1id = $userId){
+               return $game->player1tag;
+           }
+
+           return $game->player2tag;
+       }
 }
