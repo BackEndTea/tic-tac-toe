@@ -159,6 +159,25 @@ class FieldRepository
            $game = Game::find($gameid);
 
        }
+       /**
+        * Checks if the given move is allowed on that field.
+        *
+        *
+        */
+       private function isFieldAllowed($gameid, $move)
+       {
+
+       }
+
+       /**
+        * Checks if the given move is within a field.
+        *
+        *
+        */
+       private function isInnerMoveAllowed($game ,$move)
+       {
+
+       }
 
     public function makeMove($gameid, $userid, $move)
     {
