@@ -207,7 +207,7 @@ class FieldRepository
         $field = $game->fields();
         if ($game->gametype = Constants::GAME_TYPE_NORMAL) {
             $move = $move % 10;
-            $this->makeInnerMove($move,$field->get()->first(), $userTag)
+            $this->makeInnerMove($move,$field->get()->first(), $userTag);
         }else{
             $moveField = $move / 10;
             $this->makeInnerMove($move % 10, $field
