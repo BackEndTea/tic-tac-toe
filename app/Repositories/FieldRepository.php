@@ -149,23 +149,53 @@ class FieldRepository
            return Field::find($fieldId)->parent()->get()->first();
        }
 
+       /**
+        * Checks if the given move is allowed.
+        *
+        *
+        */
+       public function isMoveAllowed($gameid,$move)
+       {
+           $game = Game::find($gameid);
+
+       }
+
     public function makeMove($gameid, $userid, $move)
     {
         $game = Game::find($gameid);
-        $field = $game->fields()->get();
+        $userTag = $this->getUserTag($gameid, $userid);
+        $field = $game->fields();
         if ($game->gametype = Constants::GAME_TYPE_NORMAL) {
+            $move = $move % 10;
+            $this->makeInnerMove($move,$field->get()->first(), $userTag)
+        }else{
+            $moveField = $move / 10;
+            $this->makeInnerMove($move % 10, $field
+                ->where('placement', $moveField)->get(),$userTag);
+
         }
+        $game->lastplay = $move;
+        $game->save();
     }
 
-    private function makeInnerMove($move, $field, $userID)
+    private function makeInnerMove($move, $field, $usertag)
     {
+        if($field['position' . $move] == null){
+            $field['position' . $move] = $usertag;
+        }
+
+        $field->save();
+        return $field;
+
     }
+
+
 
     private function getUserTag($gameid, $userid)
     {
         $game = Game::find($gameid);
 
-        if ($game->player1id = $userId) {
+        if ($game->player1id = $userid) {
             return $game->player1tag;
         }
 
