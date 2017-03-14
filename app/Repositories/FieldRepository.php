@@ -159,6 +159,18 @@ class FieldRepository
            $game = Game::find($gameid);
 
        }
+
+       /**
+        * Checks if it is the users turn
+        *
+        *
+        *
+        */
+        private function isUserAllowed($gameid, $user)
+        {
+
+        }
+
        /**
         * Checks if the given move is allowed on that field.
         *
@@ -179,7 +191,16 @@ class FieldRepository
 
        }
 
-    public function makeMove($gameid, $userid, $move)
+       /**
+        * Makes a the specified move on the game for that user.
+        *
+        * @param int gameid id of the game that is played
+        * @param int userid id of the user that makes the move
+        * @param int move the move that the user makes 23 means field 2, position 3
+        *
+        * @return mixed
+        */
+       public function makeMove($gameid, $userid, $move)
     {
         $game = Game::find($gameid);
         $userTag = $this->getUserTag($gameid, $userid);
@@ -197,6 +218,15 @@ class FieldRepository
         $game->save();
     }
 
+    /**
+     * Makes the specifeid move on the field.
+     *
+     * @param int move the move to be made, see makeMove for explanation on format
+     * @param Field field the field that is being played
+     * @param char usertag tag that the user is using
+     *
+     * @return Field
+     */
     private function makeInnerMove($move, $field, $usertag)
     {
         if($field['position' . $move] == null){
@@ -208,8 +238,14 @@ class FieldRepository
 
     }
 
-
-
+    /**
+     * Gets tag of the user for this game.
+     *
+     * @param int gameid id of the game that is being played
+     * @param int userid id of the user that is playing
+     *
+     * @return Game
+     */
     private function getUserTag($gameid, $userid)
     {
         $game = Game::find($gameid);
