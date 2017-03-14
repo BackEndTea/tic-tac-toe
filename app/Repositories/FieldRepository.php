@@ -151,44 +151,31 @@ class FieldRepository
 
        /**
         * Checks if the given move is allowed.
-        *
-        *
         */
-       public function isMoveAllowed($gameid,$move)
+       public function isMoveAllowed($gameid, $move)
        {
            $game = Game::find($gameid);
-
        }
 
-       /**
-        * Checks if it is the users turn
-        *
-        *
-        *
-        */
+        /**
+         * Checks if it is the users turn.
+         */
         private function isUserAllowed($gameid, $user)
         {
-
         }
 
        /**
         * Checks if the given move is allowed on that field.
-        *
-        *
         */
        private function isFieldAllowed($gameid, $move)
        {
-
        }
 
        /**
         * Checks if the given move is within a field.
-        *
-        *
         */
-       private function isInnerMoveAllowed($game ,$move)
+       private function isInnerMoveAllowed($game, $move)
        {
-
        }
 
        /**
@@ -201,22 +188,21 @@ class FieldRepository
         * @return mixed
         */
        public function makeMove($gameid, $userid, $move)
-    {
-        $game = Game::find($gameid);
-        $userTag = $this->getUserTag($gameid, $userid);
-        $field = $game->fields();
-        if ($game->gametype = Constants::GAME_TYPE_NORMAL) {
-            $move = $move % 10;
-            $this->makeInnerMove($move,$field->get()->first(), $userTag);
-        }else{
-            $moveField = $move / 10;
-            $this->makeInnerMove($move % 10, $field
-                ->where('placement', $moveField)->get(),$userTag);
-
-        }
-        $game->lastplay = $move;
-        $game->save();
-    }
+       {
+           $game = Game::find($gameid);
+           $userTag = $this->getUserTag($gameid, $userid);
+           $field = $game->fields();
+           if ($game->gametype = Constants::GAME_TYPE_NORMAL) {
+               $move = $move % 10;
+               $this->makeInnerMove($move, $field->get()->first(), $userTag);
+           } else {
+               $moveField = $move / 10;
+               $this->makeInnerMove($move % 10, $field
+                ->where('placement', $moveField)->get(), $userTag);
+           }
+           $game->lastplay = $move;
+           $game->save();
+       }
 
     /**
      * Makes the specifeid move on the field.
@@ -229,13 +215,13 @@ class FieldRepository
      */
     private function makeInnerMove($move, $field, $usertag)
     {
-        if($field['position' . $move] == null){
-            $field['position' . $move] = $usertag;
+        if ($field['position'.$move] == null) {
+            $field['position'.$move] = $usertag;
         }
 
         $field->save();
-        return $field;
 
+        return $field;
     }
 
     /**
