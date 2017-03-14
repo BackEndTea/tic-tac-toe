@@ -204,17 +204,17 @@ class FieldRepository
            $game->save();
        }
 
-    /**
-     * Makes the specifeid move on the field.
-     *
-     * @param int move the move to be made, see makeMove for explanation on format
-     * @param Field field the field that is being played
-     * @param char usertag tag that the user is using
-     *
-     * @return Field
-     */
-    private function makeInnerMove($move, $field, $usertag)
-    {
+       /**
+       * Makes the specifeid move on the field.
+       *
+       * @param int move the move to be made, see makeMove for explanation on format
+       * @param Field field the field that is being played
+       * @param char usertag tag that the user is using
+       *
+       * @return Field
+       */
+       private function makeInnerMove($move, $field, $usertag)
+       {
         if ($field['position'.$move] == null) {
             $field['position'.$move] = $usertag;
         }
@@ -222,18 +222,17 @@ class FieldRepository
         $field->save();
 
         return $field;
-    }
-
-    /**
-     * Gets tag of the user for this game.
-     *
-     * @param int gameid id of the game that is being played
-     * @param int userid id of the user that is playing
-     *
-     * @return Game
-     */
-    private function getUserTag($gameid, $userid)
-    {
+        }
+        /**
+        * Gets tag of the user for this game.
+        *
+        * @param int gameid id of the game that is being played
+        * @param int userid id of the user that is playing
+        *
+        * @return Game
+        */
+        private function getUserTag($gameid, $userid)
+        {
         $game = Game::find($gameid);
 
         if ($game->player1id = $userid) {
@@ -241,5 +240,5 @@ class FieldRepository
         }
 
         return $game->player2tag;
-    }
+        }
 }
