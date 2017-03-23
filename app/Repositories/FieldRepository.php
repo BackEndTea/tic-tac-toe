@@ -160,8 +160,16 @@ class FieldRepository
         /**
          * Checks if it is the users turn.
          */
-        private function isUserAllowed($gameid, $user)
+        private function isUserAllowed($gameid, $userid)
         {
+            $game = Game::find($gameid);
+            if($game->turn == 1 && $game->player1id = $userid) {
+                return true;
+            }elseif($game->turn == 2 && $game->player2id = $userid) {
+                return true;
+            }
+
+            return false;
         }
 
        /**
@@ -169,13 +177,34 @@ class FieldRepository
         */
        private function isFieldAllowed($gameid, $move)
        {
+
+            $game = Game::find($gameid);
+            if($game->gametype == Constants::GAME_TYPE_NORMAL) {
+                return true;
+            }
+            $toPlay = $game->lastplay % 10;
+            $field = $game->fields()->get()->first();
+
+            if($field['position' . $game->lastplay % 10] !== Constants::GAME_INPUT_FIELD)
+            {
+                return false;
+            }
        }
 
        /**
         * Checks if the given move is within a field.
         */
-       private function isInnerMoveAllowed($game, $move)
+       private function isInnerMoveAllowed($gameid, $move)
        {
+           $game = Game::find($gameid);
+           $field = $game->fields()->get()->first();
+
+           if($game->gametype == Constants::GAME_TYPE_EXTREME){
+               $field = $field->where('placement', $move % 10)->get();
+           }
+
+           return $field['position'.$move] == null;
+
        }
 
        /**
@@ -215,10 +244,7 @@ class FieldRepository
         */
        private function makeInnerMove($move, $field, $usertag)
        {
-           if ($field['position'.$move] == null) {
-               $field['position'.$move] = $usertag;
-           }
-
+           $field['position'.$move] = $usertag;
            $field->save();
 
            return $field;
