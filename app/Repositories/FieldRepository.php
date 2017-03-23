@@ -163,9 +163,9 @@ class FieldRepository
         private function isUserAllowed($gameid, $userid)
         {
             $game = Game::find($gameid);
-            if($game->turn == 1 && $game->player1id = $userid) {
+            if ($game->turn == 1 && $game->player1id = $userid) {
                 return true;
-            }elseif($game->turn == 2 && $game->player2id = $userid) {
+            } elseif ($game->turn == 2 && $game->player2id = $userid) {
                 return true;
             }
 
@@ -177,18 +177,16 @@ class FieldRepository
         */
        private function isFieldAllowed($gameid, $move)
        {
+           $game = Game::find($gameid);
+           if ($game->gametype == Constants::GAME_TYPE_NORMAL) {
+               return true;
+           }
+           $toPlay = $game->lastplay % 10;
+           $field = $game->fields()->get()->first();
 
-            $game = Game::find($gameid);
-            if($game->gametype == Constants::GAME_TYPE_NORMAL) {
-                return true;
-            }
-            $toPlay = $game->lastplay % 10;
-            $field = $game->fields()->get()->first();
-
-            if($field['position' . $game->lastplay % 10] !== Constants::GAME_INPUT_FIELD)
-            {
-                return false;
-            }
+           if ($field['position'.$game->lastplay % 10] !== Constants::GAME_INPUT_FIELD) {
+               return false;
+           }
        }
 
        /**
@@ -199,12 +197,11 @@ class FieldRepository
            $game = Game::find($gameid);
            $field = $game->fields()->get()->first();
 
-           if($game->gametype == Constants::GAME_TYPE_EXTREME){
+           if ($game->gametype == Constants::GAME_TYPE_EXTREME) {
                $field = $field->where('placement', $move % 10)->get();
            }
 
            return $field['position'.$move] == null;
-
        }
 
        /**
