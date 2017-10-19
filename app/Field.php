@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends Model
 {
     /**
-    * The table associated with the model.
-    *
-    * @var string
-    */
-   protected $table = 'fields';
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'fields';
 
     /**
      * The primary key for the model.
