@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     /**
-    * The table associated with the model.
-    *
-    * @var string
-    */
-   protected $table = 'games';
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'games';
 
     /**
      * The primary key for the model.
