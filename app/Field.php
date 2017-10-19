@@ -11,7 +11,7 @@ class Field extends Model
     *
     * @var string
     */
-   protected $table = 'field';
+   protected $table = 'fields';
 
     /**
      * The primary key for the model.
@@ -33,4 +33,19 @@ class Field extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function fields()
+    {
+        return $this->hasMany('App\Field', 'parentid', 'fieldid');
+    }
+
+    public function parent()
+    {
+        return $this->hasOne('App\Field', 'fieldid', 'parentid');
+    }
+
+    public function game()
+    {
+        return $this->belongsTo('App\Game', 'gameid', 'gameid');
+    }
 }

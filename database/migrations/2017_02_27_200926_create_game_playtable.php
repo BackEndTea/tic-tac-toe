@@ -13,18 +13,18 @@ class CreateGamePlaytable extends Migration
      */
     public function up()
     {
-        Schema::create('field', function (Blueprint $table) {
+        Schema::create('fields', function (Blueprint $table) {
             $table->increments('fieldid');
             $table->unsignedInteger('gameid')->nullable();
-            $table->unsignedInteger('poition1');
-            $table->unsignedInteger('poition2');
-            $table->unsignedInteger('poition3');
-            $table->unsignedInteger('poition4');
-            $table->unsignedInteger('poition5');
-            $table->unsignedInteger('poition6');
-            $table->unsignedInteger('poition7');
-            $table->unsignedInteger('poition8');
-            $table->unsignedInteger('poition9');
+            $table->unsignedInteger('position1');
+            $table->unsignedInteger('position2');
+            $table->unsignedInteger('position3');
+            $table->unsignedInteger('position4');
+            $table->unsignedInteger('position5');
+            $table->unsignedInteger('position6');
+            $table->unsignedInteger('position7');
+            $table->unsignedInteger('position8');
+            $table->unsignedInteger('position9');
             /*
             * id's are ordered as numpad
             * 7|8|9
@@ -34,9 +34,10 @@ class CreateGamePlaytable extends Migration
 
             $table->unsignedInteger('parentid')->nullable();
             $table->unsignedInteger('placement')->nullable();
+            $table->unsignedInteger('lastplay')->nullable();
 
             $table->foreign('parentid')
-                ->references('fieldid')->on('field')
+                ->references('fieldid')->on('fields')
                 ->onDelete('cascade');
             $table->foreign('gameid')
                 ->references('gameid')->on('games')
@@ -51,6 +52,6 @@ class CreateGamePlaytable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('fields');
     }
 }
